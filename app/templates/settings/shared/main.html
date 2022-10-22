@@ -1,0 +1,34 @@
+<form class="form-horizontal" role="form">
+
+  <div class="form-group">
+    <label for="time_format" class="col-sm-3 control-label">формат времени <br />
+      <small class="text-muted">год %Y, месяц %m, дата %d<br /> час %H, мин. %M, сек. %S</small>
+    </label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" placeholder="формат времени" name="time_format" value="<%- settings.time_format %>">
+       <div class="text-muted">пример: %Y-%m-%d_%H-%M-%S -> "2014-05-25_12-15-32"</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="file_name_format" class="col-sm-3 control-label">формат имени файла <br />
+      <small class="text-muted">имя камеры: {alias}<br />время начала записи: {time}</small>
+    </label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" placeholder="формат имени файла" name="file_name_format" value="<%- settings.file_name_format %>">
+       <div class="text-muted">пример: {alias} [ {time} ].mpg -> "камера-во-дворе-01 [ 2014-05-25_12-15-32 ].mpg"</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cut_record" class="col-sm-3 control-label">обрезка записей <br />
+      <small class="text-muted">каждые T минут - every:T<br/>в To, Tn каждого часа - at: To, Tn</small>
+    </label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" placeholder="обрезка записей" name="cut_record" value="<%- settings.cut_record %>">
+       <div class="text-muted">пример: every: 3 -> обрезать каждые 3 минуты"</div>
+       <div class="text-muted">пример: at: 15, 20, 45 -> обрезать в 15, 20 и 45 минут каждого часа"</div>
+    </div>
+  </div>
+
+</form>

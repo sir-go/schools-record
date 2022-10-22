@@ -1,0 +1,24 @@
+<div class="modal fade">
+{#  <div class="modal-dialog modal-lg">#}
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Импорт списка камер (json)</h4>
+      </div>
+
+      <div class="modal-body">
+        <div>[...</div>
+        <textarea class="form-control" rows="20" name="cams_import_text"></textarea>
+        <div>...]</div>
+        <span>пример: {"ip": "192.168.1.240", "user": "user", "pwd": "passwd", "uri": "/live/h264_ulaw/SXGA", "alias": "Вход", "mass_start": 1}</span>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary btn-import-ok">Ок</button>
+      </div>
+
+    </div>
+{#  </div>#}
+</div>

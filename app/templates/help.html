@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Сервер записи - справка</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='lib/bootstrap-3.1.1/css/bootstrap.min.css') }}"/>
+{#  <link rel="stylesheet" href="{{ url_for('static', filename='lib/bootstrap-3.1.1/css/bootstrap-theme.min.css') }}"/>#}
+  <link rel="stylesheet" href="{{ url_for('static', filename='doc.css') }}" media="all"/>
+  <script src="{{ url_for('static', filename='lib/jquery-2.1.0.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/bootstrap-3.1.1/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='doc.js') }}"></script>
+</head>
+<body>
+  <header>
+    <nav id="top" class="navbar navbar-default navbar-static-top text-center">
+      <h2>Документация по работе с сервером записи <small>(v.0.2)</small></h2>
+    </nav>
+  </header>
+  <div class="container">
+            <h2 class="printed-only">Документация по работе с сервером записи <small>(v.0.2)</small></h2>
+            <ul class="hidden-print">
+              <li><a href="#interface">элементы интерфейса</a></li>
+                <ul>
+                  <li><a href="#act_panel">панель действий</a></li>
+                  <li><a href="#cam_pads">панели управления камерами</a></li>
+                  <li><a href="#cams_settings" >окно настройки камер</a></li>
+                  <li><a href="#drive_ls" >окно просмотра дисков</a></li>
+                </ul>
+              <li><a href="#work_script" >сценарий работы</a></li>
+                <ul>
+                  <li><a href="#ext_mount" >подключение диска</a></li>
+                  <li><a href="#cam_rename" >переименовывание камер</a></li>
+                  <li><a href="#rec_start" >запуск записи</a></li>
+                  <li><a href="#rec_stop" >остановка записи</a></li>
+                  <li><a href="#recs_ls" >доступ к записям</a></li>
+                  <li><a href="#ext_umount" >отключение внешнего диска</a></li>
+                </ul>
+              <li><a href="#alarm_scripts" >аварийные сценарии</a></li>
+                <ul>
+                  <li><a href="#hide_status" >пропадания статусов</a></li>
+                  <li><a href="#server_down" >недоступность сервера</a></li>
+                  <li><a href="#rec_error" >ошибка записи</a></li>
+                  <li><a href="#bad_day_today" >статус "старт записи..." и нет реакции</a></li>
+                  <li><a href="#interface_problems" >проблемы интерфейса</a></li>
+                  <li><a href="#others" >прочие проблемы</a></li>
+                </ul>
+            </ul>
+
+        <div class="doc-section">
+          <hr/>
+          <h1 id="interface">Элементы интерфейса</h1>
+
+            <img width="70%" class="img-thumbnail" src="{{ url_for('static', filename='img/doc/main.png') }}">
+            <p></p>
+            <p>Интерфейс управления сервером записи состоит из двух основных элементов: верхней панели действий и области с панелями управления камер</p>
+
+            <h3 id="act_panel">панель действий</h3>
+            <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/top-bar.png') }}">
+            <p></p>
+            <p>На панели действий расположены:</p>
+            <ul>
+              <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/start-btn.png') }}">
+                - кнопка старта записи всех камер с включённой опцией массового старта<br/>
+                По нажатию посылает команду старта записи всем камерам, у которых включена соответствующая опция в настройках,
+                если все такие камеры уже пишут - кнопка не активна.
+              </li>
+              <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/stop-btn.png') }}">
+                - кнопка остановки записи всех камер<br/>
+                По нажатию посылает команду остановки записи всем камерам, если ни одна из камер не пишет - кнопка не активна.
+              </li>
+  <div class="page-break"></div>
+              <li class="nav"><img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/drives-btns.png') }}">
+                - панели дисков<br/>
+                По нажатию открывают новое окно браузера с отображением содержимого диска
+                <p id="drive_ls">
+                  <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/drive-ls-files.png') }}"><br/>
+                  на диске можно найти директорию с текущей датой,
+                  в ней - директорию с именем камеры,
+                  далее - ссылки на файлы записей для каждой камеры<br/>
+                  для просмотра записи - её нужно скачать себе на компьютер по ссылке
+                </p>
+                При наведении мыши - показывает состояние диска:<br/>
+                <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/drive-info.png') }}">
+                <p></p>
+                Справа от кнопки внешнего диска есть кнопка его извлечения
+                <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/drive-umount.png') }}">
+                активна только когда все записи остановлены, по нажатию - извлекает подключенный внешний диск
+              </li>
+              <li class="nav"><img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/help-btn.png') }}">
+                кнопка вызова справки
+              </li>
+              <li class="nav"><img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-btn.png') }}">
+                кнопка открытия окна настройки камер. Активна только, если все камеры остановлены.
+
+              </li>
+            </ul>
+
+            <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+    <div class="page-break"></div>
+            <h3 id="cam_pads">панели управления камерами</h3>
+            <p>Ниже панели действий - область, заполненная панелями камер.</p>
+            <p></p>
+            <p>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad.png') }}">
+              на панели камеры:
+              <ul>
+                <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-btn-passive.png') }}">
+                  - кнопка управления<br/>
+                  по нажатию  - запускает или останавливает запись с камеры<br/>
+                  если у соответствующей камеры включена опция массового старта записи, конпка будет дополнительно выделена рамкой:<br/>
+                  <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-btn-passive-mass-start.png') }}"><br/>
+                  может быть в двух состояниях:
+                  <ul>
+                    <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-btn-passive.png') }}">
+                    - запись остановлена, по нажатию - будет дана команда запуска
+                    </li>
+                    <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-btn-active.png') }}">
+                    - процесс запись запущен, по нажатию - будет дана команда остановки
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad-name.png') }}">
+                  - имя камеры
+                </li>
+                <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad-status-ready.png') }}">
+                  - статус процесса записи
+                  <br/>может быть в состояниях:
+                  <ul>
+                    <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad-status-ready.png') }}">
+                    - запись остановлена
+                    </li>
+                    <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad-status-launch.png') }}">
+                    - производится запуск записи, попытка соединения с камерой, выбор диска для записи и пр.
+                    </li>
+                    <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad-status-recording.png') }}">
+                    - запись запущена, отображается время начала текущего отрезка и запланированное время создания нового
+                    </li>
+                    <li class="nav"> <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad-status-error.png') }}">
+                    - произошла ошибка во время записи, сервер будет пытаться восстановить процесс до тех пор, пока не будет дана команда остановки
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+          <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+<div class="page-break"></div>
+          <h3 id="cams_settings">окно настройки камер</h3>
+          <img width="70%" class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-main.png') }}">
+          <p>Позволяет добавлять, удалять камеры и изменять их настройки</p>
+          <p></p>
+          <ul>
+            <li class="nav"><img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-cams-list.png') }}">
+              <br/>список камер, все действие в этом окне будут производиться с выбранной здесь камерой
+            </li>
+            <li class="nav">
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-cam-add.png') }}">
+              - добавит камеру с уникальным именем и пустыми настройками, нужно будет её переименовать и заполнить поля настроек
+            </li>
+            <li class="nav">
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-cam-import.png') }}">
+              - откроет окно массового импорта списка камер <br/>
+              (для упрощения первичной настройки системы, когда нужно добавить большое количество камер)<br/>
+              каждая камера - массив настроек камеры формата json ({ключ:значение, ключ:значение, ...})
+            </li>
+            <li class="nav">
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-cam-del.png') }}">
+              - удалит выбранную ниже камеру
+            </li>
+            <li class="nav">
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-cam-opts.png') }}">
+              <br/>
+              - настройки камеры:
+              <ul>
+                <li class="nav"><b>название</b> - уникальное имя камеры,
+                  директория на диске с записями будет иметь это же имя,
+                  поэтому допустимы только корректные имена как для имён файлов
+                  (без служебных символов < > : " / \ | ? * . ),
+                  допустимы символы латиницы, кириллицы, пробелы, цифры, знаки "-","+"
+                </li>
+                <li class="nav"><b>ip адрес</b> - уникальный адрес в локально сети</li>
+                <li class="nav"><b>uri ресурс</b> - путь, по которому сервер должен искать видео поток на камере
+                  (зависит от модели камеры, обычно у всех камер одной организации - одинаковый)</li>
+                <li class="nav"><b>логин</b> и <b>пароль</b>  - параметры учётной записи для доступа к камере</li>
+                <li class="nav"><b>запускать при массовом старте</b>  - будет ли запущена запись с камеры при нажатии кнопки "Старт" на панели действий главного окна</li>
+              </ul>
+            </li>
+            <li class="nav">
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-cams-close.png') }}">
+              - закрыть окно настроек без сохранения изменений
+            </li>
+            <li class="nav">
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-cam-apply.png') }}">
+              - применить внесённые изменения и закрыть окно настроек (кнопка отображается только, если были внесены какие-либо изменения)
+            </li>
+          </ul>
+          <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+        </div>
+{#        <div class="pageFooter">- стр </div>#}
+        <div class="page-break"></div>
+
+        <div class="doc-section">
+          <h1 id="work_script">Сценарий работы</h1>
+            Для открытия интерфейса сервера записи - запускаем браузер с ярлыка "сервер записи"
+            <br/>
+            <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/icon.png') }}">
+
+
+            <h3 id="ext_mount">подключение диска</h3>
+            <p>
+              если есть не остановленные процессы записи - останавливаем их все кнопкой<br/>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/stop-btn.png') }}"><br/>
+              и дожидаемся, когда все камеры перейдут в состояние <br/>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad-status-ready.png') }}">
+            </p>
+            <p>
+              подключаем пустой внешний диск к кабелю и ждём появления кнопки с зелёной стрелкой на панели дисков <br/>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/drives-btns.png') }}"><br/>
+            </p>
+            <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+            <h3 id="cam_rename">переименовывание камер</h3>
+            <p>
+              если есть не остановленные процессы записи - останавливаем их все кнопкой<br/>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/stop-btn.png') }}"><br/>
+              и дожидаемся, когда все камеры перейдут в состояние <br/>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad-status-ready.png') }}">
+            </p>
+            <p>
+              кнопкой <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-btn.png') }}">
+              на панели действий вызываем <a href="#cams_settings">окно настройки камер</a>
+            </p>
+            <p>
+              для каждой камеры, которую нужно переименовать, выбираем её и в поле <b>название</b>
+              меняем её имя
+            </p>
+            <p>
+              после переименовывания всех камер, нажимаем кнопку применения настроек <br/>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/settings-cam-apply.png') }}">
+              и ждём, когда все панели камер в главном окне получат новые имена (секунд 5-10) <br/>
+              всё, теперь после запуска записи на дисках будет создана новая директория с новым именем камеры, куда и будут попадать файлы записей
+            </p>
+<div class="page-break"></div>
+            <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+            <h3 id="rec_start">запуск записи</h3>
+            <h4>каждой камеры отдельно</h4>
+              <p>
+                на панели каждой камеры, запись с которой нужно начать, нажимаем кнопку
+                <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-btn-passive.png') }}"> <br/>
+                после этого статус камеры должен измениться сначала на "старт записи...", затем на " ... запись ... "<br/>
+                каждый процесс записи работает независимо от других, поэтому дожидаться его запуска перед запуском следующего не обязательно
+                <br/>
+              </p>
+            <h4>массовый</h4>
+              <p>
+                на панели действий жмём кнопку
+                <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/start-btn.png') }}"><br/>
+                после этого будет запущена запись с камер, у которых в настройках установлена опция массового запуска (и кнопки которых выделены рамкой)<br/>
+                при этом статусы камер будут последовательно меняться на "старт записи...", затем на " ... запись ... "<br/>
+                <br/>
+              </p>
+
+            <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+            <h3 id="rec_stop">остановка записи</h3>
+            <p>
+              на панели каждой камеры, запись с которой нужно остановить или прервать попытки в случае ошибки, нажимаем кнопку
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-btn-active.png') }}"> <br/>
+              либо для остановки всех запущенных процессов записи жмём кнопку <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/stop-btn.png') }}">
+              <br/>
+              после этого статус камеры должен измениться сначала на "остановка записи...", затем на "готов"<br/>
+            </p>
+            <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+            <h3 id="recs_ls">доступ к записям</h3>
+            <p>
+              просмотреть записанные файлы можно либо скачав их из <a href="#drive_ls">окна просмотра дисков</a>,
+              вызываемому по щелчку на диске, <br/>
+              либо подключившись к сетевому ресурсу сервера записи через проводник по ip адресу сервера (виден в адресной строке браузера на главном окне)<br/>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/server-ip.png') }}"> <br/>
+              с логином и паролем, выданным администратором
+            </p>
+            <p>
+              доступ к сетевому ресурсу сервера позволяет удалять записи с дисков
+            </p>
+            <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+<div class="page-break"></div>
+            <h3 id="ext_umount">отключение внешнего диска</h3>
+            <p>
+              если есть не остановленные процессы записи - останавливаем их все кнопкой<br/>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/stop-btn.png') }}"><br/>
+              и дожидаемся, когда все камеры перейдут в состояние <br/>
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/cam-pad-status-ready.png') }}">
+            </p>
+            <p>
+              на панели дисков нажать кнопку
+              <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/drive-umount.png') }}">
+              рядом с внешним диском
+            </p>
+            <p>отключение диска может занять 5-10 секунд, на это время на панели внешнего диска появится надпись <b>откл...</b></p>
+            <p>дождаться, когда панель внешнего диска исчезнет</p>
+            <p>отсоединить внешний диск от провода</p>
+            <p>если панель долго не исчезает и висит надпись <b>откл...</b>, значит диск занят каким-то процессом и система не может его отключить,
+              в этом случае проверить, не открыто ли какое-нибудь окно (сетевой диск или окно с просмотром записей), затем нужно ещё раз нажать кнопку отключения.
+            </p>
+            <p>Если ничего не помогает - убедиться, что все записи остановлены, выключить сервер кнопкой на системном блоке, после полного выключения сервера - отключить внешний диск от провода, подключить следующий и запустить сервер.</p>
+
+        </div>
+       <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+        <div class="page-break"></div>
+
+        <div class="doc-section">
+          <h1 id="alarm_scripts">Аварийные сценарии</h1>
+            На любом этапе работы могут возникнуть проблемы, решение некоторых из них может потребовать вмешательства технического персонала
+
+            <h3 id="hide_status">пропадание статусов</h3>
+            <p>
+              При пропадании статусов на панелях камер (обычно после применения новых настроек) следует обновить
+              страницу браузера (F5), либо закрыть браузер и запустить с ярлыка "сервер записи" заново.
+            </p>
+            <p>
+              Если отсутствует статус у только что изменённой камеры (например, после переименования) - зайти в настройки, удалить эту камеру и добавить заново
+            </p>
+
+            <h3 id="server_down">недоступность сервера</h3>
+            <p>
+              При обрыве связи между компьютером, с которого производится подключение к серверу записи и самим сервером появится сообщение
+               <img class="img-thumbnail" src="{{ url_for('static', filename='img/doc/server-down.png') }}"> <br/>
+              оно пропадёт сразу после восстановления связи.
+            </p>
+            <p>
+              В случае появления такого сообщения, необходимо проверить, работает ли сервер, доступен ли он по сети (ping).
+            </p>
+
+            <h3 id="rec_error">ошибка записи</h3>
+            <p>
+              Статус камеры "ошибка, рестарт записи..." означает, что серверу не удаётся либо подключиться к камере,
+              либо создать файл записи на диске. При этом сервер будет бесконечно пытаться возобновить процесс записи до ручной остановки процесса.
+            </p>
+            <p>
+              Необходимо проверить работоспособность камеры.
+              Убедиться, что время изменения и размер файлов записи этой камеры не меняется.
+            </p>
+            <p>
+              После удачного возобновления процесса записи, этот статус автоматически сменится.
+            </p>
+
+            <h3 id="bad_day_today">статус "старт записи..." и нет реакции</h3>
+              <p>
+                Если на камере надолго (минута - две) повис статус "старт записи..." и кнопка остановки не реугирует - это внутренняя проблема системы.<br/>
+                Может помочь остановка всех камер кнопкой "Стоп" на панели действий и последующий запуск ранее запущенных камер (массовым стартом или по отдельности).<br/>
+              </p>
+<div class="page-break"></div>
+            <h3 id="interface_problems">проблемы интерфейса</h3>
+              <p>
+                При любых странностях интерфейса (наползании статусов дисков, неправильной отрисовки панелей и пр.) первое,
+                что можно сделать - обновить страницу браузера (F5 или Ctrl-R, либо закрыть браузер и запустить с ярлыка "сервер записи" заново).
+                Если проблемы не пропали - проверить, пишутся ли файлы (через сетевой диск или через просмотр записей).
+                О проблеме собщить тех.персоналу.
+              </p>
+
+            <h3 id="others">прочие проблемы</h3>
+            <p>
+              В том случае, если никакие меры не привели к восстановлению работы системы - обязательно уведомить  технический персонал.<br/>
+              Если возможности связаться с технический персоналом нет, либо необходимо принять экстренные меры:
+              <ul>
+                <li>выключить сервер кнопкой на системном блоке</li>
+                <li>дождаться его полного отключения (перестанет шуметь и все индикаторы погаснут)</li>
+                <li>включить сервер</li>
+                <li>подождать минут 3-5 до полной загрузки</li>
+                <li>попробовать возобновить работу (с ярлыка "сервер записи")</li>
+              </ul>
+
+        </div>
+         <a href="#top" class="hidden-print"> <span class="glyphicon glyphicon-arrow-up"></span> в начало</a>
+      </div>
+{#  <div class="pageFooter">- стр </div>#}
+</body>
+</html>

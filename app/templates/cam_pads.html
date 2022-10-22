@@ -1,0 +1,13 @@
+<% _.forEach(cams, function(cam) { %>
+  <div class="campad" data-cam-uid="<%- cam.uid %>">
+    <div class="control">
+      <button type="button" class="btn btn-default btn-sm btn-campad-act <% if (cam.mass_start) { %>mass-start<% } %>" {#  disabled #}>
+        <span class="glyphicon glyphicon-record"></span>
+      </button>
+    </div>
+    <div class="info">
+      <div class="alias" title="<%- cam.ip %>"><%- cam.alias %></div>
+      <div class="status cam-log-link"></div>
+    </div>
+  </div>
+<% }); %>

@@ -1,0 +1,33 @@
+<div class="modal fade">
+{#  <div class="modal-dialog modal-lg">#}
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%- cam.alias %></h4>
+      </div>
+
+      <div class="modal-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#cam_log" data-toggle="tab">события</a></li>
+          <li><a href="#cam_records" data-toggle="tab">записи</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="cam_log">
+            <% _.forEach(cam.events, function(event) { %>
+
+            <% }); %>
+          </div>
+          <div class="tab-pane" id="cam_records">
+            <% _.forEach(cam.records, function(record) { %>
+
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+{#  </div>#}
+</div>

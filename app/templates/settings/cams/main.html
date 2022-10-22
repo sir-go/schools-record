@@ -1,0 +1,30 @@
+<div id="cams_list">
+  <div id="cams_list_control">
+    <div class="btn-group">
+
+      <button class="btn btn-default btn-sm btn-cam-add">
+        <span class="glyphicon glyphicon-plus"> добавить</span>
+      </button>
+
+      <div class="btn-group">
+        <button class="btn btn-default btn-sm btn-cam-import">
+          <span class="glyphicon glyphicon-plus-sign"> импорт</span>
+        </button>
+      </div>
+
+    </div>
+    <button class="btn btn-default btn-sm btn-cam-del"><span class="glyphicon glyphicon-trash"></span></button>
+
+  </div>
+  <div id="cams_list_select">
+    <select class="form-control" size="20" {# multiple #}>
+      <% _.forEach(cams, function(cam) { %>
+      <option value="<%- cam.uid %>"><%- cam.ip %> | <%- cam.alias %></option>
+      <% }); %>
+    </select>
+  </div>
+</div>
+
+<div id="cams_settings_place">
+  {% include("settings/cams/cam_options.html") %}
+</div>

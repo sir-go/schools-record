@@ -1,0 +1,52 @@
+.navbar {
+    font-size: 20pt;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+h3 {
+    padding-left: 35px;
+    font-size: 20px;
+}
+
+h4 {
+    padding-left: 60px;
+}
+
+.container {
+    margin-bottom: 100px;
+}
+
+@media all {
+    .printed-only { display: none; }
+    .page-break { display: none; }
+    /*.pageFooter { display: none; }*/
+}
+
+@media print {
+    .printed-only { display: block; }
+    .page-break { display: block; page-break-before: always; }
+    /*.pageFooter { display: table-footer-group }*/
+}
+
+li.nav > img {
+    margin-right: 10px;
+}
+li.nav {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f5f5f5;
+}
+/*@page {*/
+    /*counter-increment: page;*/
+    /*counter-reset: page 1;*/
+    /*@top-right {*/
+        /*content: "- стр " counter(page) " из " counter(pages) " -";*/
+    /*}*/
+/*}*/
+
+/*.pageFooter:after {*/
+    /*counter-increment: page;*/
+    /*content: counter(page);*/
+/*}*/

@@ -1,0 +1,233 @@
+* {
+    /*outline: 1px dotted lightblue;*/
+}
+
+body {
+    /*min-width: 980px;*/
+}
+
+.tab-pane {
+    padding-top: 10px;
+}
+
+/*.panel-heading {*/
+    /*padding: 5px 10px;*/
+/*}*/
+
+.panel {
+    margin: 10px;
+}
+
+.panel-body {
+    text-align: center;
+}
+
+.progress {
+    margin-bottom: 0;
+    height: 5px;
+}
+
+.input-sm {
+    font-size: 12pt;
+}
+
+.campads {
+    /*text-align: center;*/
+    padding-top: 50px;
+    /*min-width: 1030px;*/
+    padding-left: 10px;
+}
+
+.campad {
+    text-align: left;
+    display: inline-block;
+    /* width: 30%; */
+    min-width: 235px;
+    height: 40px;
+    border: 1px solid #DFDFDF;
+    padding: 2px;
+    margin: 3px;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.14);
+    /*float: left;*/
+}
+
+/*.campad:hover {*/
+    /*border-color: #c4c4c4;*/
+    /*box-shadow: 0 1px 4px rgba(0,0,0,0.3);*/
+/*}*/
+
+.control, .info {
+    display: inline-block;
+    height: 35px;
+}
+
+.control {
+    float: left;
+    padding-top: 2px;
+}
+
+.info {
+    padding-left: 11px;
+    line-height: 1;
+}
+
+.alias {
+    font-size: 11pt;
+    max-width: 245px;
+    height: 20px;
+    overflow: auto;
+}
+
+.status {
+    /*cursor: pointer;*/
+    color : dodgerblue;
+    width: 180px;
+    font-size: 10pt;
+    /*border: dotted 1px lightgray;*/
+}
+
+/*.status:hover {*/
+    /*background-color: #F3F3F3;*/
+/*}*/
+
+
+.toolbar {
+    position : fixed;
+    background-color: white;
+    z-index: 1024;
+    width: 100%;
+    /*min-width : 980px;*/
+    height: 40px;
+    padding: 2px 10px;
+    /*border-bottom: 1px solid #000000;*/
+    box-shadow: 0 1px 20px rgba(0,0,0,0.3);
+}
+
+.tools {
+    position: relative;
+}
+
+.tool-right {
+    position : absolute;
+    right : 0;
+    top: 0;
+}
+
+.btn_help {
+    right: 50px;
+    font-weight: bold;
+}
+
+#cams_list {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+#cams_list select {
+    padding: 5px;
+    width: 100%;
+    max-height: 400px;
+}
+
+#cams_list_control {
+    margin: 5px;
+}
+
+#cams_settings_place {
+    display: inline-block;
+    width: 65%;
+    padding-left: 10px;
+    border-left: 1px solid lightgray;
+}
+
+.cam-records-list {
+    height: 100px;
+    overflow: auto;
+}
+
+.toolbar .btn-group {
+    margin-right: 15px;
+}
+
+.dev-pad {
+    padding: 0 2px;
+    height: 34px;
+    border-radius: 3px;
+    font-size: 10pt;
+    line-height: 1;
+    text-align: left;
+}
+
+.dev-name {
+    padding: 7px 0 2px 4px;
+    margin-bottom: 3px;
+    min-width : 85px;
+}
+
+/*.dev-mpoint {*/
+    /*font-size: 5pt;*/
+/*}*/
+
+/*.dev-ext {*/
+    /*border-color: green;*/
+    /*box-shadow: 0 0 4px greenyellow;*/
+/*}*/
+
+.glyphicon-open {
+    color: green;
+}
+
+/*.dev-ext-eject {*/
+    /*border-color: darkred;*/
+/*}*/
+
+.table-in-popover {
+    border-collapse: collapse;
+}
+
+.table-in-popover tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+.table-in-popover tr:last-child {
+    border-bottom: none;
+}
+
+.table-in-popover td {
+    padding: 0 8px;
+}
+
+.table-in-popover td:first-child {
+    background-color: #f8f8f8;
+    text-align: right;
+}
+
+
+.btn-campad-act {
+    color: darkgreen;
+}
+
+.btn-campad-act:hover {
+    color: green;
+}
+
+
+.btn-campad-act.active {
+    color: red;
+    /*background-color: #690002;*/
+}
+.btn-campad-act.mass-start {
+    /*border: 1px solid green;*/
+    box-shadow: 1px 1px 1px 2px lightslategrey;
+}
+
+/*.btn-campad-act.mass-start-highlighted {*/
+    /*border: 1px solid lightslategrey;*/
+    /*box-shadow: 1px 1px 1px 2px lightslategrey;*/
+/*}*/
+
+.btn_mass_control button {
+    font-weight: bold;
+}

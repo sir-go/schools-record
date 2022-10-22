@@ -1,0 +1,47 @@
+<div class="btn-group">
+<% _.forEach(storages_int, function(storage) { %>
+  <a target="_blank" href="/records/<%- storage.mp %>" class="btn btn-default dev-pad"
+          data-content="
+            <table class='table-in-popover' data-stor-mp='<%- storage.mp %>'>
+              <tr><td>устройство</td><td><%- storage.dev %></td></tr>
+              <tr><td>директория</td><td>./<%- storage.mp %></td></tr>
+              <tr><td>ёмкость</td><td><%- (storage.size / 1048576).toFixed(2) %> GB</td></tr>
+              <tr><td>занято</td><td><%- (storage.used / 1048576).toFixed(2) %> GB</td></tr>
+              <tr><td>свободно</td><td><%- (storage.avail / 1048576).toFixed(2) %> GB</td></tr>
+            </table>" data-html="true" data-stor-mp='<%- storage.mp %>'>
+    <div class="dev-name">
+      <%- storage.dev.slice(storage.dev.lastIndexOf('/')+1) %> : <%- storage.used_p - 1 %>%
+    </div>
+    <div class="progress">
+      <div class="progress-bar progress-bar-<% if (storage.used_p <= 75 ) { %>info<% } else if (storage.used_p <=90) { %>warning<% } else { %>danger<% } %>"
+           style="width: <%- storage.used_p %>%;"></div>
+    </div>
+  </a>
+<% }); %>
+</div>
+<div class="btn-group ">
+  <% _.forEach(storages_ext, function(storage) { %>
+  <a target="_blank" href="/records/<%- storage.mp %>" class="btn btn-default dev-pad dev-ext"
+          data-content="
+            <table class='table-in-popover' data-stor-mp='<%- storage.mp %>'>
+              <tr><td>устройство</td><td><%- storage.dev %></td></tr>
+              <tr><td>директория</td><td>./<%- storage.mp %></td></tr>
+              <tr><td>ёмкость</td><td><%- (storage.size / 1048576).toFixed(2) %> GB</td></tr>
+              <tr><td>занято</td><td><%- (storage.used / 1048576).toFixed(2) %> GB</td></tr>
+              <tr><td>свободно</td><td><%- (storage.avail / 1048576).toFixed(2) %> GB</td></tr>
+            </table>" data-html="true" data-stor-mp='<%- storage.mp %>' <% if (!storage.mounted && storage.attached) { %>disabled<% } %> >
+    <div class="dev-name">
+      <% if (!storage.mounted && storage.attached) { %>
+        откл...
+      <% } else { %>
+        <%- storage.dev.slice(storage.dev.lastIndexOf('/')+1) %> : <%- storage.used_p - 1 %>%
+      <% } %>
+    </div>
+    <div class="progress">
+      <div class="progress-bar progress-bar-<% if (storage.used_p <= 50 ) { %>info<% } else if (storage.used_p <=85) { %>warning<% } else { %>danger<% } %>"
+           style="width: <%- storage.used_p %>%;"></div>
+    </div>
+  </a>
+  <button class="btn btn-default btn-detach-ext" onclick="$(this).detach_storage('<%- storage.mp %>')" disabled><span class="glyphicon glyphicon-open"></span></button>
+  <% }); %>
+</div>

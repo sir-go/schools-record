@@ -1,0 +1,7 @@
+gevent
+Flask
+Flask-AutoIndex
+Flask-Silk
+gevent-websocket
+jsonrpc2
+peewee
