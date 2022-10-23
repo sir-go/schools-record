@@ -1,10 +1,28 @@
-## Parallel recording RTSP streams from cameras to multiple storages 
+## Parallel recording RTSP streams from CCTV cameras to multiple storages 
 
-Python 2.7
+### Task
+Our team got a task to create a tool for simultaneously recording multiple RTSP streams from CCTV cameras to several storages on the server.
 
-Recording - ffmpeg.
+The removable storage must be able to detach from the server at the end of recording and must contain playable
+video files (MPEG encoded).
 
-GUI - web-interface (flask, websockets, bootstrap, jquery).
+All video content must be split into half-hour parts and put into date/camera-name/time directories.
 
-Storages management - udev.
+The streaming database and the recording process must be able to manage by unqualified staff via a web interface.
 
+### Solution
+
+System is written in Python 2.7 and contains:
+
+- Flask server: json-rpc over websocket API and web interface (bootstrap)
+- channels controller (parallel stream management - ffmpeg processes)
+- storages observing (attach/detach, capacity monitoring)
+- sqlite database
+
+### Screenshots
+
+#### Main page
+![](main.png)
+
+#### Setting window
+![](settings.png)

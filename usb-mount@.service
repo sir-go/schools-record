@@ -1,7 +1,0 @@
-[Unit]
-Description=Mount USB Drive on %i
-[Service]
-Type=oneshot
-RemainAfterExit=true
-ExecStart=/opt/sch/mount_external.sh add %i
-ExecStop=/opt/sch/mount_external.sh remove %i
