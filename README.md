@@ -2,7 +2,7 @@
 
 > ⚠️ **DEPRECATED** ⚠️<br/>
 the code is extremely **obsolete!** (python 2.6)<br>
-the only purpose of this repo is the **demonstration** the task solution
+the only purpose of this repo is to **demonstrate** the task solution
 
 ### Task
 Our team got a task to create a tool for simultaneously recording multiple 
